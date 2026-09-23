@@ -1,3 +1,12 @@
+def decorate_def(f):
+    def wrapper():
+        try:
+            f()
+        except Exception as e :
+            print(f'ERROR : {e}')
+    return wrapper
+
+
 class TodoManager():
     def __init__(self):
         self.task_dic = {}
