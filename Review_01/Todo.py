@@ -1,7 +1,9 @@
-def decorate_def(f):
-    def wrapper():
+def log(f):
+    def wrapper(*args , **kwargs):
         try:
-            f()
+            print(f'Calling {f.__name__}')
+            return f(*args, **kwargs)
+            
         except Exception as e :
             print(f'ERROR : {e}')
     return wrapper
@@ -12,7 +14,8 @@ class TodoManager():
         self.task_dic = {}
         
     #methods
-        
+       
+    @log 
     def add_task(self,task):
         '''
         param = task [str]
@@ -27,7 +30,7 @@ class TodoManager():
             raise ValueError("this task is repetitive")
         self.task_dic[task] = False
         
-        
+    @log
     def remove_task(self , task):
         '''
         param = task [str]
@@ -38,7 +41,7 @@ class TodoManager():
             raise ValueError("task not found.")
         self.task_dic.pop(task)
 
-            
+    @log     
     def complete_task(self, task):
         '''
         param = task [str]
@@ -49,7 +52,8 @@ class TodoManager():
             self.task_dic[task] = True
         else:
             raise ValueError("task not found !!")
-        
+    
+    @log   
     def get_tasks(self):
         '''
         
@@ -64,11 +68,17 @@ pass
 manager = TodoManager()
 
 manager.add_task('learn python')
-manager.add_task('play music')
-manager.add_task('swiming')
-manager.add_task('coding')
+l = manager.get_tasks()
+print(l)
 
+manager.add_task("learn python")
+manager.add_task(task="play music")
 manager.add_task(1234)
+# manager.add_task('play music')
+# manager.add_task('swiming')
+# manager.add_task('coding')
+
+# manager.add_task(1234)
 # manager.add_task('coding')
 # manager.add_task(' ')
 
